@@ -1,0 +1,11 @@
+C:\Users\Seth\source\repos\Ex07Roulette\Ex07Roulette\bin\Debug\netcoreapp2.1\Ex07Roulette.deps.json
+C:\Users\Seth\source\repos\Ex07Roulette\Ex07Roulette\bin\Debug\netcoreapp2.1\Ex07Roulette.runtimeconfig.json
+C:\Users\Seth\source\repos\Ex07Roulette\Ex07Roulette\bin\Debug\netcoreapp2.1\Ex07Roulette.runtimeconfig.dev.json
+C:\Users\Seth\source\repos\Ex07Roulette\Ex07Roulette\bin\Debug\netcoreapp2.1\Ex07Roulette.dll
+C:\Users\Seth\source\repos\Ex07Roulette\Ex07Roulette\bin\Debug\netcoreapp2.1\Ex07Roulette.pdb
+C:\Users\Seth\source\repos\Ex07Roulette\Ex07Roulette\obj\Debug\netcoreapp2.1\Ex07Roulette.csprojAssemblyReference.cache
+C:\Users\Seth\source\repos\Ex07Roulette\Ex07Roulette\obj\Debug\netcoreapp2.1\Ex07Roulette.csproj.CoreCompileInputs.cache
+C:\Users\Seth\source\repos\Ex07Roulette\Ex07Roulette\obj\Debug\netcoreapp2.1\Ex07Roulette.AssemblyInfoInputs.cache
+C:\Users\Seth\source\repos\Ex07Roulette\Ex07Roulette\obj\Debug\netcoreapp2.1\Ex07Roulette.AssemblyInfo.cs
+C:\Users\Seth\source\repos\Ex07Roulette\Ex07Roulette\obj\Debug\netcoreapp2.1\Ex07Roulette.dll
+C:\Users\Seth\source\repos\Ex07Roulette\Ex07Roulette\obj\Debug\netcoreapp2.1\Ex07Roulette.pdb
