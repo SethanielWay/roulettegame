@@ -10,7 +10,7 @@ namespace Ex07Roulette
 
         public int money;
         string playerName;
-        int spins;
+        public int spins;
         static string leftStart = "\t\t\t";
 
         public UI(int money, string playerName, int spins)
@@ -117,21 +117,29 @@ namespace Ex07Roulette
             {
                 color = "Green";
                 number = "00";
+                Console.BackgroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else if(result == 0)
             {
                 color = "Green";
                 number = "0";
+                Console.BackgroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else if (wheel.wheel[result] == 'R')
             {
                 color = "Red";
                 number = result.ToString();
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
                 color = "Black";
                 number = result.ToString();
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
             }
 
 
@@ -139,6 +147,8 @@ namespace Ex07Roulette
             Console.SetCursorPosition((Console.BufferWidth - resultMessage.Length) / 2, 5);
             Console.WriteLine(resultMessage);
 
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
             return (result, color);
         }
@@ -275,6 +285,103 @@ namespace Ex07Roulette
 
         }
 
+        public int betSize(int wallet, int startCursor, int rightShift)
+        {
+            int bet = wallet;
+            string start = "\t\t\t";
+            bool finished = false;
+            bool abort = false;
+
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.SetCursorPosition(rightShift, startCursor);
+            Console.WriteLine($"{start}How much would you like to bet?");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.SetCursorPosition(rightShift, startCursor + 1);
+            Console.WriteLine($"{start}Use Arrow Keys to Adjust");
+            Console.SetCursorPosition(rightShift, startCursor + 2);
+            Console.WriteLine($"{start}Enter to confirm | ESC to cancel");
+            Console.WriteLine();
+            Console.SetCursorPosition(rightShift, startCursor + 4);
+            Console.WriteLine($"{start}${bet}");
+
+            ConsoleKeyInfo cki;
+            Console.TreatControlCAsInput = true;
+            do
+            {
+                cki = Console.ReadKey(true);
+                switch (cki.Key)
+                {
+                    case ConsoleKey.DownArrow:
+                        if (bet > 0)
+                        {
+                            bet -= 1;
+                            Console.SetCursorPosition(rightShift, startCursor + 4);
+                            Console.WriteLine($"{start}${bet}          ");
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case ConsoleKey.UpArrow:
+                        if (bet < wallet)
+                        {
+                            bet += 1;
+                            Console.SetCursorPosition(rightShift, startCursor + 4);
+                            Console.WriteLine($"{start}${bet}          ");
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case ConsoleKey.LeftArrow:
+                        if (bet - 25 >= 0)
+                        {
+                            bet -= 25;
+                            Console.SetCursorPosition(rightShift, startCursor + 4);
+                            Console.WriteLine($"{start}${bet}          ");
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case ConsoleKey.RightArrow:
+                        if (bet + 25 <= wallet)
+                        {
+                            bet += 25;
+                            Console.SetCursorPosition(rightShift, startCursor + 4);
+                            Console.WriteLine($"{start}${bet}          ");
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case ConsoleKey.Enter:
+                        finished = true;
+                        break;
+
+                    case ConsoleKey.Escape:
+                        abort = true;
+                        finished = true;
+                        break;
+                }
+            } while (finished != true);
+            if (abort != true)
+            {
+                return bet;
+            }
+            else
+            {
+                bet = 0;
+                return bet;
+            }
+
+        }
+
         public (bool, int) chooseBetType()
         {
             string menu2 = "What would you like to bet on? (ESC to cancel)";
@@ -361,6 +468,27 @@ namespace Ex07Roulette
             bool finished = false;
 
             ListNavigation list = new ListNavigation(lowsHighs, 17, finished);
+
+            (finished, selected) = list.scrollList();
+            return (finished, selected);
+        }
+
+        public (bool, int) splitZeros()
+        {
+            string menu2 = $"{leftStart}{leftStart}\t\t   Slit 0 and 00?";
+            List<string> yesOrNo = new List<string>()
+            {
+                $"{leftStart}{leftStart}\t\t\tYes",
+                $"{leftStart}{leftStart}\t\t\tNo",
+            };
+            Console.SetCursorPosition(0, 15);
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine(menu2);
+
+            int selected = 0;
+            bool finished = false;
+
+            ListNavigation list = new ListNavigation(yesOrNo, 17, finished);
 
             (finished, selected) = list.scrollList();
             return (finished, selected);
@@ -508,33 +636,65 @@ namespace Ex07Roulette
             (finished, selected) = list.scrollList();
             return (finished, selected);
         }
-        public (bool, int) chooseSplit()
+        public (bool, int, int) chooseSplit()
         {
-            string menu2 = $"{leftStart}Which 2 numbers would you like to bet on?";
-            List<string> evenOrOdd = new List<string>()
+            string menu2 = $"{leftStart}Which number would you like to bet on?";
+            List<string> allNumbers = new List<string>()
             {
-                $"{leftStart}1, 2, 4, 5",
-                $"{leftStart}2, 3, 5, 6",
-                $"{leftStart}4, 5, 7, 8",
-                $"{leftStart}5, 6, 8, 9",
-                $"{leftStart}7, 8, 10, 11",
-                $"{leftStart}8, 9, 11, 12",
-                $"{leftStart}10, 11, 13, 14",
-                $"{leftStart}11, 12, 14, 15",
-                $"{leftStart}13, 14, 16, 17",
-                $"{leftStart}14, 15, 17, 18",
-                $"{leftStart}16, 17, 19, 20",
-                $"{leftStart}17, 18, 20, 21",
-                $"{leftStart}19, 20, 22, 23",
-                $"{leftStart}20, 21, 23, 24",
-                $"{leftStart}22, 23, 25, 26",
-                $"{leftStart}23, 24, 26, 27",
-                $"{leftStart}25, 26, 28, 29",
-                $"{leftStart}26, 27, 29, 30",
-                $"{leftStart}28, 29, 30, 31",
-                $"{leftStart}29, 30, 32, 33",
-                $"{leftStart}31, 32, 34, 35",
-                $"{leftStart}32, 33, 35, 36",
+                "0", "1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "00"
+            };
+            Console.SetCursorPosition(0, 10);
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine(menu2);
+
+            int selected1 = 0;
+            int selected2 = 0;
+            bool finished = false;
+            int choice;
+
+            ListNavigation3Columns list = new ListNavigation3Columns(allNumbers, 12, finished);
+
+            (finished, selected1) = list.scrollList();
+
+            if(selected1 == 0)
+            {
+                (finished, choice) = splitZeros();
+                if(finished == false && choice == 0)
+                {
+                    selected2 = 37;
+                }
+                else
+                {
+                    finished = true;
+                }
+            }
+            else if(selected1 == 37)
+            {
+                (finished, choice) = splitZeros();
+                if (finished == false && choice == 0)
+                {
+                    selected2 = 0;
+                }
+                else
+                {
+                    finished = true;
+                }
+            }
+            else
+            {
+                List<int> splitOptions = new List<int> { };
+                (finished, splitOptions) = findSplit(selected1);
+                (finished, selected2) = chooseSplit2(selected1, splitOptions);
+            }
+
+            return (finished, selected1, selected2);
+        }
+        public (bool, int) chooseSingleNumber()
+        {
+            string menu2 = $"{leftStart}Which number would you like to bet on?";
+            List<string> allNumbers = new List<string>()
+            {
+                "0", "1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "00"
             };
             Console.SetCursorPosition(0, 10);
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -543,9 +703,73 @@ namespace Ex07Roulette
             int selected = 0;
             bool finished = false;
 
-            ListNavigationSingleSpaced list = new ListNavigationSingleSpaced(evenOrOdd, 12, finished);
+            ListNavigation3Columns list = new ListNavigation3Columns(allNumbers, 12, finished);
 
             (finished, selected) = list.scrollList();
+            return (finished, selected);
+        }
+
+        public (bool, List<int>) findSplit(int selected)
+        {
+            bool finished = false;
+            List<int> selected2 = new List<int> { };
+
+            if (selected % 3 == 1)
+            {
+                selected2.Add(selected + 1);
+                if (selected - 3 > 0)
+                {
+                    selected2.Add(selected - 3);
+                }
+                if(selected + 3 < 37)
+                {
+                    selected2.Add(selected + 3);
+                }
+            }
+            else if(selected % 3 == 2)
+            {
+                selected2.Add(selected - 1);
+                selected2.Add(selected + 1);
+                if (selected - 3 > 0)
+                {
+                    selected2.Add(selected - 3);
+                }
+                if (selected + 3 < 37)
+                {
+                    selected2.Add(selected + 3);
+                }
+            }
+            else
+            {
+                selected2.Add(selected - 1);
+                if (selected - 3 > 0)
+                {
+                    selected2.Add(selected - 3);
+                }
+                if (selected + 3 < 37)
+                {
+                    selected2.Add(selected + 3);
+                }
+
+            }
+            return (finished, selected2);
+        }
+
+        public (bool, int) chooseSplit2(int selected, List<int> list)
+        {
+            string menu2 = $"{leftStart}{leftStart}\tChoose a number to pair with {selected}:";
+            
+            Console.SetCursorPosition(0, 15);
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine(menu2);
+
+            selected = 0;
+            bool finished = false;
+
+            ListNavigationInt listOptions = new ListNavigationInt(list, 17, finished);
+
+            (finished, selected) = listOptions.scrollList();
+            int pair = list[selected];
             return (finished, selected);
         }
     }

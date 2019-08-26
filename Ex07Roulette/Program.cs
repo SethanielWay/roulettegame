@@ -62,6 +62,7 @@ namespace Ex07Roulette
                                 winner = false;
                             }
                             userInterface.money = userInterface.recordResult(userInterface.money, bet, winner);
+                            userInterface.spins++;
                             finished = true;
                             break;
 
@@ -79,6 +80,7 @@ namespace Ex07Roulette
                                 winner = false;
                             }
                             userInterface.money = userInterface.recordResult(userInterface.money, bet, winner);
+                            userInterface.spins++;
                             finished = true;
                             break;
 
@@ -95,6 +97,7 @@ namespace Ex07Roulette
                                 winner = false;
                             }
                             userInterface.money = userInterface.recordResult(userInterface.money, bet, winner);
+                            userInterface.spins++;
                             finished = true;
                             break;
 
@@ -111,6 +114,7 @@ namespace Ex07Roulette
                                 winner = false;
                             }
                             userInterface.money = userInterface.recordResult(userInterface.money, bet, winner, 2);
+                            userInterface.spins++;
                             finished = true;
                             break;
 
@@ -127,6 +131,7 @@ namespace Ex07Roulette
                                 winner = false;
                             }
                             userInterface.money = userInterface.recordResult(userInterface.money, bet, winner, 2);
+                            userInterface.spins++;
                             finished = true;
                             break;
 
@@ -143,6 +148,7 @@ namespace Ex07Roulette
                                 winner = false;
                             }
                             userInterface.money = userInterface.recordResult(userInterface.money, bet, winner, 5);
+                            userInterface.spins++;
                             finished = true;
                             break;
 
@@ -177,6 +183,7 @@ namespace Ex07Roulette
                                 winner = false;
                             }
                             userInterface.money = userInterface.recordResult(userInterface.money, bet, winner, 8);
+                            userInterface.spins++;
                             finished = true;
                             break;
 
@@ -193,16 +200,45 @@ namespace Ex07Roulette
                                 winner = false;
                             }
                             userInterface.money = userInterface.recordResult(userInterface.money, bet, winner, 11);
+                            userInterface.spins++;
                             finished = true;
                             break;
 
                         case 8:
-                            (finished, selected) = userInterface.chooseSplit();
+                            int selected1;
+                            int selected2;
+                            (finished, selected1, selected2) = userInterface.chooseSplit();
+                            bet = userInterface.betSize(userInterface.money, 26, 35);
+                            (result, color) = userInterface.spinWheelAnimation(wheel, rand);
+                            if (result == selected1 || result == selected2)
+                            {
+                                winner = true;
+                            }
+                            else
+                            {
+                                winner = false;
+                            }
+                            userInterface.money = userInterface.recordResult(userInterface.money, bet, winner, 35);
+                            userInterface.spins++;
+                            finished = true;
                             break;
 
-                            //case 9:
-                            //    (finished, selected) = userInterface.chooseSingleNumber();
-                            //    break;
+                        case 9:
+                            (finished, selected) = userInterface.chooseSingleNumber();
+                            bet = userInterface.betSize(userInterface.money, 20, 35);
+                            (result, color) = userInterface.spinWheelAnimation(wheel, rand);
+                            if (result == selected)
+                            {
+                                winner = true;
+                            }
+                            else
+                            {
+                                winner = false;
+                            }
+                            userInterface.money = userInterface.recordResult(userInterface.money, bet, winner, 35);
+                            userInterface.spins++;
+                            finished = true;
+                            break;
 
                     }
                 }
