@@ -3,11 +3,11 @@
 # roulettegame
 A playable console-based roulette game.
 
-##Place bets
+## Place bets
 Choose your bet. Each bet has a different payout based on the odds of success.
 
-##Choose your bet size
+## Choose your bet size
 Manage your money wisely and choose a bet you can afford. If your wallet is empty, the game is over.
 
-##Spin the wheel
+## Spin the wheel
 Good luck! The results are random. May the odds be forever in your favor!
