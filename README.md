@@ -1,4 +1,4 @@
-![Image of the UI for this amazing console based game]()
+![Image of the UI for this amazing console based game](Roulette Game.PNG)
 
 # roulettegame
 A playable console-based roulette game.
